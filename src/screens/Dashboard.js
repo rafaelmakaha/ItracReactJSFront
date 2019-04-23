@@ -53,7 +53,7 @@ class Dashboard extends React.Component {
             onChange={this.handleChange}
             indicatorColor="primary"
             textColor="primary"
-            fullWidth
+            variant="fullWidth"
           >
             <Tab label="Pendentes" />
             <Tab label="Processados" />
@@ -66,8 +66,6 @@ class Dashboard extends React.Component {
         >
           <TabContainer dir={theme.direction}>
             <Pendings />
-          </TabContainer>
-          <TabContainer dir={theme.direction}>
           </TabContainer>
         </SwipeableViews>
       </div>
