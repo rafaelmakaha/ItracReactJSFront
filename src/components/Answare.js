@@ -1,22 +1,35 @@
 import React from 'react';
-import { Typography, Paper } from '@material-ui/core';
+import { Typography, Paper, Grid, Button } from '@material-ui/core';
 
 
 export const Answare = (props) => {
     return(
         <Paper >
-            <Typography>
-                {props.idLimeSurvey}
-            </Typography>
-            <Typography>
-                {props.orgao}
-            </Typography>
-            <Typography>
-                {props.servico}
-            </Typography>
-            <Typography>
-                {props.status}
-            </Typography>
+            <Grid container spacing={8}>
+                <Grid item >
+                    <Typography>
+                        {props.idLimeSurvey}
+                    </Typography>
+                </Grid>
+                <Grid item >
+                    <Typography>
+                        {props.orgao}
+                    </Typography>
+                </Grid>
+                <Grid item >
+                    <Typography>
+                        {props.servico}
+                    </Typography>
+                </Grid>
+                <Grid item >
+                    <Typography>
+                        {props.status}
+                    </Typography>
+                </Grid>
+                <Grid item>
+                    <Button variant="contained" color="primary" >Avaliar</Button>
+                </Grid>
+            </Grid>
         </Paper>
     );
 }
