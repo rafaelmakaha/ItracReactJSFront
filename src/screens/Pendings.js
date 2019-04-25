@@ -11,16 +11,14 @@ export default class Pendings extends Component {
     }
 
     componentDidMount(){
-        fetch(
-            'http://0.0.0.0:8000/answares/',
-            {mode: 'no-cors'}
-        ).then(function(response){
+        fetch('http://0.0.0.0:8000/answares/'
+        ).then((response) => {
             if(response.ok){
-              return response.json();
+                return response.json();
             }
-          }).then(data => {
-              this.setState({ pendings: data })
-          });
+        }).then(data => {
+            this.setState({ pendings: data })
+        });
     }
 
     render(){
@@ -30,6 +28,7 @@ export default class Pendings extends Component {
                 {pendings.map((pending,key) => {
                     return(
                         <Answare 
+                        key={key}
                         idLimeSurvey={pending.lime_id}
                         orgao={pending.orgao_nome}
                         servico={pending.servico_nome}
