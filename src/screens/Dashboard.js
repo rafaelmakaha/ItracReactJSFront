@@ -43,7 +43,7 @@ class Dashboard extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme, onClickModerate } = this.props;
 
     return (
       <div className={classes.root}>
@@ -65,7 +65,7 @@ class Dashboard extends React.Component {
           onChangeIndex={this.handleChangeIndex}
         >
           <TabContainer dir={theme.direction}>
-            <Pendings />
+            <Pendings onClickModerate={onClickModerate}/>
           </TabContainer>
         </SwipeableViews>
       </div>

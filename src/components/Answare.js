@@ -1,5 +1,10 @@
 import React from 'react';
-import { Typography, Paper, Grid, Button } from '@material-ui/core';
+import { Typography, 
+    Paper, 
+    Grid, 
+    Button 
+} from '@material-ui/core';
+import {Link} from 'react-router-dom';
 
 
 export const Answare = (props) => {
@@ -27,7 +32,14 @@ export const Answare = (props) => {
                     </Typography>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" color="primary" >Avaliar</Button>
+                    <Button 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={() => props.onClickModerate(props.url)}
+                        component={Link} to='/edit'
+                    >
+                        Avaliar
+                    </Button>
                 </Grid>
             </Grid>
         </Paper>

@@ -17,6 +17,7 @@ export default class Pendings extends Component {
                 return response.json();
             }
         }).then(data => {
+            console.log(data);
             this.setState({ pendings: data })
         });
     }
@@ -32,7 +33,9 @@ export default class Pendings extends Component {
                         idLimeSurvey={pending.lime_id}
                         orgao={pending.orgao_nome}
                         servico={pending.servico_nome}
+                        url={pending.url}
                         status='Pendente'
+                        onClickModerate={this.props.onClickModerate}
                         />
                     )
                 })}
