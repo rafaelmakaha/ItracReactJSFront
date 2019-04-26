@@ -4,7 +4,6 @@ import { Typography,
     Grid, 
     Button 
 } from '@material-ui/core';
-import {Link} from 'react-router-dom';
 
 
 export const Answare = (props) => {
@@ -37,7 +36,7 @@ export const Answare = (props) => {
                             variant="contained" 
                             color="primary" 
                             onClick={() => props.onClickModerate(props.url)}
-                            component={Link} to='/edit'
+                            // component={Link} to='/edit'
                         >
                             Avaliar
                         </Button>
