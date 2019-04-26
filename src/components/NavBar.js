@@ -5,7 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import {Link} from 'react-router-dom';
+
 
 const styles = {
   root: {
@@ -18,6 +19,9 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
+  logout: {
+    float: 'right'
+  },
 };
 
 function ButtonAppBar(props) {
@@ -26,12 +30,15 @@ function ButtonAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-          </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.grow}>
-            Itrac
-          </Typography>
-          <Button color="inherit">Logout</Button>
+          <Button 
+            color="inherit"
+            component={Link} to='/'
+          >
+            <Typography variant="h6" color="inherit" className={classes.grow}>
+              Itrac
+            </Typography>
+          </Button>
+          <Button className={classes.logout} color="inherit">Logout</Button>
         </Toolbar>
       </AppBar>
     </div>
