@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper,
+    Grid,
+    Typography,
+} from '@material-ui/core';
 import { Answare } from '../components/Answare';
 
 export default class Processeds extends Component {
@@ -25,19 +28,47 @@ export default class Processeds extends Component {
         const processeds = this.state.processeds;
         return(
             <Paper >
-                {processeds.map((processed,key) => {
-                    return(
-                        <Answare 
-                        key={key}
-                        idLimeSurvey={processed.lime_id}
-                        orgao={processed.orgao_nome}
-                        servico={processed.servico_nome}
-                        url={processed.url}
-                        status={processed.status}
-                        // onClickModerate={props.onClickModerate}
-                        />
-                    )
-                })}
+                <Grid container
+                    direction="row"
+                    justify="space-around"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Typography variant="h5">LimeID</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="h5">Órgão</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="h5">Serviço</Typography>
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="h5">Status</Typography>
+                    </Grid>
+                </Grid>
+                <Grid container
+                direction="column"
+                justify="center"
+                alignItems="center"
+                >
+                    {processeds.map((processed,key) => {
+                        return(
+                            <Grid item xs={8}
+                            key={key}
+                            >
+                                <Answare 
+                                key={key}
+                                idLimeSurvey={processed.lime_id}
+                                orgao={processed.orgao_nome}
+                                servico={processed.servico_nome}
+                                url={processed.url}
+                                status={processed.status}
+                                // onClickModerate={props.onClickModerate}
+                                />
+                            </Grid>
+                        )
+                    })}
+                </Grid>
             </Paper>
         );
         
