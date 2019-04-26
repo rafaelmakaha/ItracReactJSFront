@@ -17,8 +17,6 @@ export default class Processeds extends Component {
                 return response.json();
             }
         }).then(data => {
-            console.log('processeds:');
-            console.log(data);
             this.setState({ processeds: data })
         });
     }
