@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { Typography, 
     Paper, 
-    Grid, 
     Button,
 } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 
 
 export default class Edit extends Component {
