@@ -12,7 +12,7 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-    height: '-webkit-fill-available',
+    height: '45%',
     overflow: 'auto'
   };
 }
@@ -24,6 +24,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[6],
     padding: theme.spacing.unit * 4,
+    height: 100,
   },
   hs: {
     width: '90%',
@@ -41,7 +42,7 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   menu: {
-    width: 200,
+    width: 150,
   },
   textField: {
     width: '50%',
@@ -54,18 +55,20 @@ class EditModal extends Component {
     const { classes } = this.props;
 
     return (
-      <Modal
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
-        open={this.props.open}
-        onClose={this.props.onClose}
-      >
-        <div style={getModalStyle()} className={classes.paper}>
-          <div className={classes.hs}>
-            {this.props.children}
+      <div className={classes.ty}>
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.props.open}
+          onClose={this.props.onClose}
+        >
+          <div style={getModalStyle()} className={classes.paper}>
+            <div className={classes.hs}>
+              {this.props.children}
+            </div>
           </div>
-        </div>
-      </Modal>
+        </Modal>
+      </div>
     );
   }
 }
