@@ -9,7 +9,11 @@ import { Typography,
 export const Answare = (props) => {
     return(
         <Paper >
-            <Grid container spacing={8}>
+            <Grid container
+            direction="row"
+            justify="space-around"
+            alignItems="center"
+            >
                 <Grid item >
                     <Typography>
                         {props.idLimeSurvey}
@@ -27,7 +31,7 @@ export const Answare = (props) => {
                 </Grid>
                 <Grid item >
                     <Typography>
-                        {props.status}
+                        {props.status==='N' ? 'Pendente': 'Processado'}
                     </Typography>
                 </Grid>
                 {props.status === 'N' ? (
@@ -35,6 +39,7 @@ export const Answare = (props) => {
                         <Button 
                             variant="contained" 
                             color="primary" 
+                            size="small"
                             onClick={() => props.onClickModerate(props.url)}
                             // component={Link} to='/edit'
                         >

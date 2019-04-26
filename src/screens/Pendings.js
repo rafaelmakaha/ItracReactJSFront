@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper,
+    Typography,
+    Grid,
+} from '@material-ui/core';
 import { Answare } from '../components/Answare';
 import Edit from './Edit';
 import EditModal from '../components/EditModal';
@@ -42,6 +45,27 @@ export default class Pendings extends Component {
         return(
             <div>
                 <Paper >
+                    <Grid container
+                    direction="row"
+                    justify="space-around"
+                    alignItems="center"
+                    >
+                        <Grid item>
+                            <Typography variant="h5">LimeID</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h5">Órgão</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h5">Serviço</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h5">Status</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h5">Avaliar</Typography>
+                        </Grid>
+                    </Grid>
                     {pendings.map((pending,key) => {
                         return(
                             <Answare 
