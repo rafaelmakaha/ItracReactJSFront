@@ -31,16 +31,18 @@ export const Answare = (props) => {
                         {props.status}
                     </Typography>
                 </Grid>
-                <Grid item>
-                    <Button 
-                        variant="contained" 
-                        color="primary" 
-                        onClick={() => props.onClickModerate(props.url)}
-                        component={Link} to='/edit'
-                    >
-                        Avaliar
-                    </Button>
-                </Grid>
+                {props.status === 'N' ? (
+                    <Grid item>
+                        <Button 
+                            variant="contained" 
+                            color="primary" 
+                            onClick={() => props.onClickModerate(props.url)}
+                            component={Link} to='/edit'
+                        >
+                            Avaliar
+                        </Button>
+                    </Grid>
+                ):null}
             </Grid>
         </Paper>
     );
