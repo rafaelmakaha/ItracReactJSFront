@@ -11,31 +11,32 @@ export default class Processeds extends Component {
     }
 
     componentDidMount(){
-        fetch('http://0.0.0.0:8000/api/answares/processeds'
+        fetch('http://0.0.0.0:8000/api/processeds/'
         ).then((response) => {
             if(response.ok){
                 return response.json();
             }
         }).then(data => {
+            console.log('processeds:');
             console.log(data);
-            this.setState({ pendings: data })
+            this.setState({ processeds: data })
         });
     }
 
     render(){
-        const pendings = this.state.pendings;
+        const processeds = this.state.processeds;
         return(
             <Paper >
-                {pendings.map((pending,key) => {
+                {processeds.map((processed,key) => {
                     return(
                         <Answare 
                         key={key}
-                        idLimeSurvey={pending.lime_id}
-                        orgao={pending.orgao_nome}
-                        servico={pending.servico_nome}
-                        url={pending.url}
-                        status='Pendente'
-                        onClickModerate={props.onClickModerate}
+                        idLimeSurvey={processed.lime_id}
+                        orgao={processed.orgao_nome}
+                        servico={processed.servico_nome}
+                        url={processed.url}
+                        status={processed.status}
+                        // onClickModerate={props.onClickModerate}
                         />
                     )
                 })}

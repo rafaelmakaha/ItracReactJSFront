@@ -11,7 +11,7 @@ export default class Pendings extends Component {
     }
 
     componentDidMount(){
-        fetch('http://0.0.0.0:8000/api/answares/pendings/'
+        fetch('http://0.0.0.0:8000/api/pendings/'
         ).then((response) => {
             if(response.ok){
                 return response.json();

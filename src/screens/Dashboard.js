@@ -8,6 +8,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 
 import Pendings from './Pendings';
+import Processeds from './Processeds';
 
 
 function TabContainer({ children, dir }) {
@@ -66,6 +67,9 @@ class Dashboard extends React.Component {
         >
           <TabContainer dir={theme.direction}>
             <Pendings onClickModerate={onClickModerate}/>
+          </TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Processeds onClickModerate={onClickModerate}/>
           </TabContainer>
         </SwipeableViews>
       </div>

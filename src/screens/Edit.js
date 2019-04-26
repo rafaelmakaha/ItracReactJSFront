@@ -15,18 +15,16 @@ export default class Edit extends Component {
         }
     }
 
-    async componentDidMount(){
-        const zeca = await fetch(
+    componentDidMount(){
+        fetch(
             this.props.url,
-        )
-        
-        // ).then((response) => {
-        //     if(response.ok){
-        //         return response.json();
-        //     }
-        // }).then(data => {
-        //     this.setState({ answare: data })
-        // });
+        ).then((response) => {
+            if(response.ok){
+                return response.json();
+            }
+        }).then(data => {
+            this.setState({ answare: data })
+        });
     }
 
     render(){
