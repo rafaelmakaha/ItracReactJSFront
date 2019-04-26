@@ -11,12 +11,13 @@ export default class Processeds extends Component {
     }
 
     componentDidMount(){
-        fetch('http://0.0.0.0:8000/answares/'
+        fetch('http://0.0.0.0:8000/api/answares/processeds'
         ).then((response) => {
             if(response.ok){
                 return response.json();
             }
         }).then(data => {
+            console.log(data);
             this.setState({ pendings: data })
         });
     }
@@ -32,7 +33,9 @@ export default class Processeds extends Component {
                         idLimeSurvey={pending.lime_id}
                         orgao={pending.orgao_nome}
                         servico={pending.servico_nome}
+                        url={pending.url}
                         status='Pendente'
+                        onClickModerate={props.onClickModerate}
                         />
                     )
                 })}

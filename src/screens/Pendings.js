@@ -11,7 +11,7 @@ export default class Pendings extends Component {
     }
 
     componentDidMount(){
-        fetch('http://0.0.0.0:8000/answares/'
+        fetch('http://0.0.0.0:8000/api/answares/pendings/'
         ).then((response) => {
             if(response.ok){
                 return response.json();
@@ -34,7 +34,7 @@ export default class Pendings extends Component {
                         orgao={pending.orgao_nome}
                         servico={pending.servico_nome}
                         url={pending.url}
-                        status='Pendente'
+                        status={pending.status}
                         onClickModerate={this.props.onClickModerate}
                         />
                     )
