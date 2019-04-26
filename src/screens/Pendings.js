@@ -63,7 +63,7 @@ export default class Pendings extends Component {
                             <Typography variant="h5">Status</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant="h5">Avaliar</Typography>
+                            <Typography variant="h5">Moderar</Typography>
                         </Grid>
                     </Grid>
                     {pendings.map((pending,key) => {

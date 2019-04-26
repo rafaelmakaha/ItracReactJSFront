@@ -5,10 +5,15 @@ import { Typography,
     Button 
 } from '@material-ui/core';
 
+const styles = theme => ({
+    root: {
+      padding: theme.spacing(3, 2),
+    },
+});
 
 export const Answare = (props) => {
     return(
-        <Paper >
+        <Paper className={styles.root}>
             <Grid container
             direction="row"
             justify="space-around"
@@ -43,7 +48,7 @@ export const Answare = (props) => {
                             onClick={() => props.onClickModerate(props.url)}
                             // component={Link} to='/edit'
                         >
-                            Avaliar
+                            Moderar
                         </Button>
                     </Grid>
                 ):null}
