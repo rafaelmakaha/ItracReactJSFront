@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import NavBar from './components/NavBar';
-import Dashboard from './screens/Dashboard';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
-import './App.css';
+import NavBar from './components/NavBar';
+import Dashboard from './screens/Dashboard';
+import Edit from './screens/Edit';
 
 class App extends Component {
   constructor(props){
@@ -20,13 +20,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <NavBar />
         <Router >
+          <NavBar />
           <Switch>
             <Route exact path='/' component={() => <Dashboard onClickModerate={this.handleOnClickModerate}/>}/>
+            <Route exact path='/edit' component={() => <Edit url={this.state.url} />} />
           </Switch>
         </Router>
-        {/* <Dashboard /> */}
       </div>
     );
   }
