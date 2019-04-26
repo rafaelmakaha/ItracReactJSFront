@@ -60,7 +60,7 @@ export default class Pendings extends Component {
                 open={this.state.open}
                 onClose={this.closeModal}
                 >
-                    <Edit url={this.state.url}/>
+                    <Edit url={this.state.url} cancelButton={this.closeModal}/>
                 </EditModal>
         </div>  
         );
