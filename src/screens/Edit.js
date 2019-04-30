@@ -121,62 +121,6 @@ export default class Edit extends Component {
                         />
                     </RadioGroup>
                 </FormControl>
-                {/* <Grid container
-                direction="column"
-                justify="center"
-                alignItems="center"
-                >
-                    <Grid item xs={8}>
-                        <TextField
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            id="outlined-name"
-                            label="LimeID"
-                            // className={classes.textField}
-                            value={String(answare.lime_id)}
-                            // onChange={handleChange('name')}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <TextField
-                            id="outlined-name"
-                            label="Órgão"
-                            // className={classes.textField}
-                            value={String(answare.orgao_nome)}
-                            // onChange={handleChange('name')}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <TextField
-                            id="outlined-name"
-                            label="Serviço"
-                            // className={classes.textField}
-                            value={String(answare.orgao_nome)}
-                            // onChange={handleChange('name')}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid>
-                    <Grid item xs={8}>
-                        <TextField
-                            InputProps={{
-                                readOnly: true,
-                            }}
-                            id="outlined-name"
-                            label="Status"
-                            // className={classes.textField}
-                            value={String(answare.status)==='N'? 'Pendente' : 'Processado'}
-                            // onChange={handleChange('name')}
-                            margin="normal"
-                            variant="outlined"
-                        />
-                    </Grid>
-                </Grid> */}
                 <Grid container
                 direction="row"
                 justify="space-evenly"
