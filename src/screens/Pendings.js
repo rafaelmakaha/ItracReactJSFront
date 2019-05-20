@@ -14,6 +14,7 @@ export default class Pendings extends Component {
             pendings: [],
             url: "",
             open: false,
+            isLoading: true,
         }
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -36,12 +37,16 @@ export default class Pendings extends Component {
                 return response.json();
             }
         }).then(data => {
-            this.setState({ pendings: data })
+            this.setState({ pendings: data });
+            this.setState({isLoading: false});
         });
     }
 
     render(){
         const pendings = this.state.pendings;
+        if(this.state.isLoading){
+            return <Typography>Carregando...</Typography>
+        }
         return(
             <div>
                 <Paper >
@@ -84,7 +89,10 @@ export default class Pendings extends Component {
                 open={this.state.open}
                 onClose={this.closeModal}
                 >
-                    <Edit url={this.state.url} cancelButton={this.closeModal}/>
+                    <Edit 
+                    url={this.state.url} 
+                    cancelButton={this.closeModal}
+                    />
                 </EditModal>
         </div>  
         );
