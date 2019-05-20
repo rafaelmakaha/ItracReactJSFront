@@ -9,7 +9,9 @@ import {
     FormControlLabel,
     Radio,
 } from '@material-ui/core';
-import OtherRadio from '../components/OtherRadio';
+// import OtherRadio from '../components/OtherRadio';
+import Select from 'react-select';
+
 
 
 export default class Edit extends Component {
@@ -17,75 +19,59 @@ export default class Edit extends Component {
         super(props);
         this.state = {
             answare:"",
+            servicos:[],
+            orgao:"",
             otherValueServico: "",
-            otherValueOrgao: "",
-            value_orgao: null,
             value_servico: null,
+            isLoading: true,
         };
         this.handleChangeServico = this.handleChangeServico.bind(this);
         this.handleOthersServico = this.handleOthersServico.bind(this);
-        this.handleChangeOrgao = this.handleChangeOrgao.bind(this);
-        this.handleOthersOrgao = this.handleOthersOrgao.bind(this);
     }
 
     handleChangeServico = event => {
         this.setState({ value_servico: event.target.value });
     };
     handleOthersServico = event => {
-        this.setState({ otherValueServico: event.target.value });
-        this.setState({ value_servico: event.target.value });
-    };
-    handleChangeOrgao = event => {
-        this.setState({ value_orgao: event.target.value });
-    };
-    handleOthersOrgao = event => {
-        this.setState({ otherValueOrgao: event.target.value });
-        this.setState({ value_orgao: event.target.value });
+        this.setState({ otherValueServico: event.value });
+        this.setState({ value_servico: event.value });
     };
 
     componentDidMount(){
-        fetch(
-            this.props.url,
-        ).then((response) => {
+        const request = async () => {
+            let response = await fetch(
+                this.props.url,
+            );
             if(response.ok){
-                return response.json();
+                response = await response.json();
             }
-        }).then(data => {
-            this.setState({ answare: data })
-        });
-    }
+            await this.setState({ answare: response });
 
+            let response2 = await fetch(
+                'http://0.0.0.0:8000/api/orgao/'+response.orgao_id,
+            );
+            if(response2.ok){
+                response2 = await response2.json();
+            }
+            await this.setState({ orgao: response2 });
+            await this.setState({ isLoading: false });
+        }
+        request();
+    }
+    
     render(){
-        const {answare} = this.state;
-        console.log(this.state.value_servico);
+        const { answare,orgao, isLoading } = this.state;
+        if(isLoading){
+            return <Typography> Carregando... </Typography>
+        }
         return(
             <Paper >
                 <Typography variant="h4" align="center" >Órgão / Serviço</Typography>
                 <Typography variant="subtitle1" align="center" >{answare.orgao_nome} / {answare.servico_nome}</Typography>
                 <FormControl component="fieldset">
                     <RadioGroup
-                        aria-label="Orgao"
-                        name="Orgao"
-                        // className={classes.group}
-                        value={this.state.value_orgao}
-                        onChange={this.handleChangeOrgao}
-                    >
-                        <FormControlLabel 
-                        value={answare.orgao_nome}
-                        control={<Radio />} 
-                        label={answare.orgao_nome} />
-
-                        <OtherRadio
-                        onTextChange={this.handleOthersOrgao}
-                        value={this.state.otherValueOrgao}
-                        placeholder="Others"
-                        />
-                    
-                    </RadioGroup>
-                    <RadioGroup
                     aria-label="Gender"
                     name="gender1"
-                    // className={classes.group}
                     value={this.state.value_servico}
                     onChange={this.handleChangeServico}
                     >
@@ -114,11 +100,18 @@ export default class Edit extends Component {
                         value="male5" 
                         control={<Radio />} 
                         label="Sugestão5" />
-                        <OtherRadio
-                            onTextChange={this.handleOthersServico}
-                            value={this.state.otherValueServico}
-                            placeholder="Others"
+                        <FormControlLabel
+                            // value={this.state.otherValueServico}
+                            checked={this.props.checked}
+                            control={<Radio/>}
+                            label={<Select
+                                value={this.state.otherValueServico}
+                                onChange={this.handleOthersServico}
+                                options={orgao.servico.map((item,i) => ({label:item.nome, value:item.nome}))}
+                                isSearchable
+                            />}
                         />
+                        {console.log(this.state.value_servico)}
                     </RadioGroup>
                 </FormControl>
                 <Grid container
