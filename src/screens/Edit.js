@@ -8,6 +8,7 @@ import {
     RadioGroup,
     FormControlLabel,
     Radio,
+    TextField,
 } from '@material-ui/core';
 // import OtherRadio from '../components/OtherRadio';
 import Select from 'react-select';
@@ -21,20 +22,29 @@ export default class Edit extends Component {
             answare:"",
             servicos:[],
             orgao:"",
+            actualValueServico: "",
             otherValueServico: "",
-            value_servico: null,
+            value_servico: "",
             isLoading: true,
+            isDisabledSelect: true,
+            isDisabledInputField: true
         };
         this.handleChangeServico = this.handleChangeServico.bind(this);
         this.handleOthersServico = this.handleOthersServico.bind(this);
+        this.handleCheckedOthers = this.handleCheckedOthers.bind(this);
+        this.handleCheckedActual = this.handleCheckedActual.bind(this);
     }
-
+    handleCheckedActual = event => {
+        this.setState({ isDisabledInputField: !event.target.checked });
+    }
+    handleCheckedOthers = event => {
+        this.setState({ isDisabledSelect: !event.target.checked });
+    }
     handleChangeServico = event => {
-        this.setState({ value_servico: event.target.value });
+        this.setState({ value_servico: event.currentTarget.value });
     };
     handleOthersServico = event => {
         this.setState({ otherValueServico: event.value });
-        this.setState({ value_servico: event.value });
     };
 
     componentDidMount(){
@@ -46,7 +56,7 @@ export default class Edit extends Component {
                 response = await response.json();
             }
             await this.setState({ answare: response });
-
+            await this.setState({ actualValueServico: response.servico_nome})
             let response2 = await fetch(
                 'http://0.0.0.0:8000/api/orgao/'+response.orgao_id,
             );
@@ -76,9 +86,18 @@ export default class Edit extends Component {
                     onChange={this.handleChangeServico}
                     >
                         <FormControlLabel 
-                        value={answare.servico_nome}
+                        value={this.state.actualValueServico}
                         control={<Radio />} 
-                        label={answare.servico_nome} />
+                        label={"Informado no diagnóstico de servicos"} 
+                        onChange={this.handleCheckedActual}
+                        />
+                        <TextField
+                        disabled={this.state.isDisabledInputField}
+                        value={this.state.actualValueServico}
+                        onChange={(event) =>{ 
+                            this.setState({ actualValueServico: event.target.value });
+                        }}
+                        />
 
                         <FormControlLabel 
                         value="male1" 
@@ -88,30 +107,23 @@ export default class Edit extends Component {
                         value="male2" 
                         control={<Radio />} 
                         label="Sugestão2" />
-                        <FormControlLabel 
-                        value="male3" 
-                        control={<Radio />} 
-                        label="Sugestão3" />
-                        <FormControlLabel 
-                        value="male4" 
-                        control={<Radio />} 
-                        label="Sugestão4" />
-                        <FormControlLabel 
-                        value="male5" 
-                        control={<Radio />} 
-                        label="Sugestão5" />
+                        
                         <FormControlLabel
-                            // value={this.state.otherValueServico}
-                            checked={this.props.checked}
-                            control={<Radio/>}
-                            label={<Select
-                                value={this.state.otherValueServico}
-                                onChange={this.handleOthersServico}
-                                options={orgao.servico.map((item,i) => ({label:item.nome, value:item.nome}))}
-                                isSearchable
-                            />}
+                        value={this.state.otherValueServico}
+                        control={<Radio/>}
+                        label={"Outro"}
+                        onChange={this.handleCheckedOthers}
                         />
-                        {console.log(this.state.value_servico)}
+                        <Select
+                        placeholder={this.state.otherValueServico}
+                        // isDisabled={this.state.isDisabledSelect}
+                        onChange={this.handleOthersServico}
+                        options={orgao.servico.map((item,i) => ({label:item.nome, value:item.nome}))}
+                        isSearchable
+                        />
+                       
+                        {console.log('serviço selecionado: ' + this.state.value_servico)}
+                        {/* {console.log('othersServico: ' + this.state.otherValueServico)}  */}
                     </RadioGroup>
                 </FormControl>
                 <Grid container
