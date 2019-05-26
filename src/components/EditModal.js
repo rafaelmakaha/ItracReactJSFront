@@ -12,7 +12,7 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-    height: '45%',
+    height: '75%',
     overflow: 'auto'
   };
 }
