@@ -58,7 +58,7 @@ export default class Edit extends Component {
             await this.setState({ answare: response });
             await this.setState({ actualValueServico: response.servico_nome})
             let response2 = await fetch(
-                'http://0.0.0.0:8000/api/orgao/'+response.orgao_id,
+                'http://0.0.0.0:8000/api/orgao/'+response.orgao_id+'/',
             );
             if(response2.ok){
                 response2 = await response2.json();
