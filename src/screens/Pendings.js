@@ -56,16 +56,10 @@ export default class Pendings extends Component {
                     alignItems="center"
                     >
                         <Grid item>
-                            <Typography variant="h5">LimeID</Typography>
-                        </Grid>
-                        <Grid item>
                             <Typography variant="h5">Órgão</Typography>
                         </Grid>
                         <Grid item>
                             <Typography variant="h5">Serviço</Typography>
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="h5">Status</Typography>
                         </Grid>
                         <Grid item>
                             <Typography variant="h5">Moderar</Typography>
@@ -75,11 +69,9 @@ export default class Pendings extends Component {
                         return(
                             <Answare 
                             key={key}
-                            idLimeSurvey={pending.lime_id}
                             orgao={pending.orgao_nome}
                             servico={pending.servico_nome}
                             url={pending.url}
-                            status={pending.status}
                             onClickModerate={this.openModal}
                             />
                         )
