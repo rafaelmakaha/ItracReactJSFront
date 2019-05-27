@@ -22,6 +22,7 @@ export default class Edit extends Component {
             answare:"",
             servicos:[],
             orgao:"",
+            sugestoes: [],
             actualValueServico: "",
             otherValueServico: "",
             value_servico: "",
@@ -64,16 +65,47 @@ export default class Edit extends Component {
                 response2 = await response2.json();
             }
             await this.setState({ orgao: response2 });
+            let response3 = await fetch(
+                'http://0.0.0.0:8000/api/sugestoes/',
+                {
+                    method:'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        nome:response.servico_nome
+                    }) 
+                }
+                );
+            if(response3.ok){
+                response3 = await response3.json();
+            }
+            await this.setState({ sugestoes: response3 })
             await this.setState({ isLoading: false });
         }
         request();
     }
     
     render(){
-        const { answare,orgao, isLoading } = this.state;
+        const { answare, orgao, isLoading, sugestoes } = this.state;
+        console.log(sugestoes)
         if(isLoading){
             return <Typography> Carregando... </Typography>
         }
+        let sug;
+        if(sugestoes.length){
+            sug = sugestoes.map((sugestao) => {
+                return(
+                    <FormControlLabel 
+                    value={sugestao.nome} 
+                    control={<Radio />} 
+                    label={sugestao.nome} />
+                )
+            })
+        }else{
+            sug = <div></div>
+        }
+        console.log(sug);
         return(
             <Paper >
                 <Typography variant="h4" align="center" >Órgão / Serviço</Typography>
@@ -87,6 +119,7 @@ export default class Edit extends Component {
                     >
                         <FormControlLabel 
                         value={this.state.actualValueServico}
+                        checked
                         control={<Radio />} 
                         label={"Informado no diagnóstico de servicos"} 
                         onChange={this.handleCheckedActual}
@@ -98,16 +131,7 @@ export default class Edit extends Component {
                             this.setState({ actualValueServico: event.target.value });
                         }}
                         />
-
-                        <FormControlLabel 
-                        value="male1" 
-                        control={<Radio />} 
-                        label="Sugestão1" />
-                        <FormControlLabel 
-                        value="male2" 
-                        control={<Radio />} 
-                        label="Sugestão2" />
-                        
+                        {sug}
                         <FormControlLabel
                         value={this.state.otherValueServico}
                         control={<Radio/>}
