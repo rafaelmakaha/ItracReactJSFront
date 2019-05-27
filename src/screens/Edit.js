@@ -10,7 +10,6 @@ import {
     Radio,
     TextField,
 } from '@material-ui/core';
-// import OtherRadio from '../components/OtherRadio';
 import Select from 'react-select';
 
 
@@ -34,12 +33,20 @@ export default class Edit extends Component {
         this.handleOthersServico = this.handleOthersServico.bind(this);
         this.handleCheckedOthers = this.handleCheckedOthers.bind(this);
         this.handleCheckedActual = this.handleCheckedActual.bind(this);
+        this.handleCheckButton = this.handleCheckButton.bind(this);
+    }
+    
+    handleCheckButton(){
+        this.setState({ isDisabledSelect: true });
+        this.setState({ isDisabledInputField: true });
     }
     handleCheckedActual = event => {
+        this.setState({ isDisabledSelect: true });
         this.setState({ isDisabledInputField: !event.target.checked });
     }
     handleCheckedOthers = event => {
         this.setState({ isDisabledSelect: !event.target.checked });
+        this.setState({ isDisabledInputField: true });
     }
     handleChangeServico = event => {
         this.setState({ value_servico: event.currentTarget.value });
@@ -58,13 +65,6 @@ export default class Edit extends Component {
             }
             await this.setState({ answare: response });
             await this.setState({ actualValueServico: response.servico_nome})
-            let response2 = await fetch(
-                'http://0.0.0.0:8000/api/orgao/'+response.orgao_id+'/',
-            );
-            if(response2.ok){
-                response2 = await response2.json();
-            }
-            await this.setState({ orgao: response2 });
             let response3 = await fetch(
                 'http://0.0.0.0:8000/api/sugestoes/',
                 {
@@ -80,7 +80,14 @@ export default class Edit extends Component {
             if(response3.ok){
                 response3 = await response3.json();
             }
-            await this.setState({ sugestoes: response3 })
+            await this.setState({ sugestoes: response3.sugestoes });
+            let response2 = await fetch(
+                'http://0.0.0.0:8000/api/orgao/'+response.orgao_id+'/',
+            );
+            if(response2.ok){
+                response2 = await response2.json();
+            }
+            await this.setState({ orgao: response2 });
             await this.setState({ isLoading: false });
         }
         request();
@@ -88,24 +95,24 @@ export default class Edit extends Component {
     
     render(){
         const { answare, orgao, isLoading, sugestoes } = this.state;
-        console.log(sugestoes)
         if(isLoading){
             return <Typography> Carregando... </Typography>
         }
-        let sug;
+        var sug = this.state.sugestoes;
+        var mapa = "";
         if(sugestoes.length){
-            sug = sugestoes.map((sugestao) => {
+            mapa = sug.map((sugestao,i) => {
                 return(
                     <FormControlLabel 
+                    key={i}
                     value={sugestao.nome} 
                     control={<Radio />} 
-                    label={sugestao.nome} />
+                    label={sugestao.nome} 
+                    onChange={this.handleCheckButton}
+                    />
                 )
             })
-        }else{
-            sug = <div></div>
         }
-        console.log(sug);
         return(
             <Paper >
                 <Typography variant="h4" align="center" >Órgão / Serviço</Typography>
@@ -131,7 +138,9 @@ export default class Edit extends Component {
                             this.setState({ actualValueServico: event.target.value });
                         }}
                         />
-                        {sug}
+
+                        {mapa}
+
                         <FormControlLabel
                         value={this.state.otherValueServico}
                         control={<Radio/>}
@@ -140,14 +149,12 @@ export default class Edit extends Component {
                         />
                         <Select
                         placeholder={this.state.otherValueServico}
-                        // isDisabled={this.state.isDisabledSelect}
+                        isDisabled={this.state.isDisabledSelect}
                         onChange={this.handleOthersServico}
                         options={orgao.servico.map((item,i) => ({label:item.nome, value:item.nome}))}
                         isSearchable
                         />
-                       
-                        {console.log('serviço selecionado: ' + this.state.value_servico)}
-                        {/* {console.log('othersServico: ' + this.state.otherValueServico)}  */}
+                       {console.log(this.state.value_servico)}
                     </RadioGroup>
                 </FormControl>
                 <Grid container
