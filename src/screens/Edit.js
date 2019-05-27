@@ -13,7 +13,6 @@ import {
 import Select from 'react-select';
 
 
-
 export default class Edit extends Component {
     constructor(props){
         super(props);
@@ -24,7 +23,9 @@ export default class Edit extends Component {
             sugestoes: [],
             actualValueServico: "",
             otherValueServico: "",
+            otherValueServicoId: "",
             value_servico: "",
+            value_servico_id: "",
             isLoading: true,
             isDisabledSelect: true,
             isDisabledInputField: true
@@ -34,8 +35,9 @@ export default class Edit extends Component {
         this.handleCheckedOthers = this.handleCheckedOthers.bind(this);
         this.handleCheckedActual = this.handleCheckedActual.bind(this);
         this.handleCheckButton = this.handleCheckButton.bind(this);
+        this.onClickModerate = this.onClickModerate.bind(this);
     }
-    
+
     handleCheckButton(){
         this.setState({ isDisabledSelect: true });
         this.setState({ isDisabledInputField: true });
@@ -43,17 +45,38 @@ export default class Edit extends Component {
     handleCheckedActual = event => {
         this.setState({ isDisabledSelect: true });
         this.setState({ isDisabledInputField: !event.target.checked });
+        this.setState({ value_servico_id: '0000' });
     }
     handleCheckedOthers = event => {
         this.setState({ isDisabledSelect: !event.target.checked });
         this.setState({ isDisabledInputField: true });
+        this.setState({ value_servico_id: this.state.otherValueServicoId });
     }
     handleChangeServico = event => {
         this.setState({ value_servico: event.currentTarget.value });
     };
     handleOthersServico = event => {
-        this.setState({ otherValueServico: event.value });
+        this.setState({ otherValueServico: event.value.nome });
+        this.setState({ value_servico_id: event.value.id });
+        this.setState({ otherValueServicoId: event.value.id });
     };
+
+    onClickModerate(){
+        fetch(
+            this.props.url,
+            {
+                method: 'PUT',
+                body: JSON.stringify({
+                    answare_id: this.state.answare_id,
+                    servico_nome: this.state.value_servico,
+                    servico_id: this.state.value_servico_id,
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                  },          
+            }
+        )
+    }
 
     componentDidMount(){
         const request = async () => {
@@ -83,11 +106,11 @@ export default class Edit extends Component {
             await this.setState({ sugestoes: response3.sugestoes });
             let response2 = await fetch(
                 'http://0.0.0.0:8000/api/orgao/'+response.orgao_id+'/',
-            );
-            if(response2.ok){
-                response2 = await response2.json();
-            }
-            await this.setState({ orgao: response2 });
+                );
+                if(response2.ok){
+                    response2 = await response2.json();
+                }
+                await this.setState({ orgao: response2 });
             await this.setState({ isLoading: false });
         }
         request();
@@ -108,7 +131,7 @@ export default class Edit extends Component {
                     value={sugestao.nome} 
                     control={<Radio />} 
                     label={sugestao.nome} 
-                    onChange={this.handleCheckButton}
+                    onChange={(e) => {this.handleCheckButton(e);this.setState({value_servico_id:sugestao.id})}}
                     />
                 )
             })
@@ -150,11 +173,12 @@ export default class Edit extends Component {
                         <Select
                         placeholder={this.state.otherValueServico}
                         isDisabled={this.state.isDisabledSelect}
-                        onChange={this.handleOthersServico}
-                        options={orgao.servico.map((item,i) => ({label:item.nome, value:item.nome}))}
+                        onChange={(e)=>{this.handleOthersServico(e)}}
+                        options={orgao.servico.map((item,i) => ({label:item.nome, value:item}))}
                         isSearchable
                         />
                        {console.log(this.state.value_servico)}
+                       {console.log(this.state.value_servico_id)}
                     </RadioGroup>
                 </FormControl>
                 <Grid container
@@ -173,7 +197,7 @@ export default class Edit extends Component {
                         <Button 
                             variant="contained" 
                             color="primary" 
-                            // onClick={() => props.onClickModerate(props.url)}
+                            onClick={this.onClickModerate}
                             // component={Link} to='/edit'
                         >
                             Confirmar
