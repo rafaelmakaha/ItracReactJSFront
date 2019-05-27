@@ -34,11 +34,6 @@ export const Answare = (props) => {
                         {props.servico}
                     </Typography>
                 </Grid>
-                <Grid item >
-                    <Typography>
-                        {props.status==='N' ? 'Pendente': 'Processado'}
-                    </Typography>
-                </Grid>
                 {props.status === 'N' ? (
                     <Grid item>
                         <Button 

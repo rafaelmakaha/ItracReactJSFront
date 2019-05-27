@@ -72,6 +72,7 @@ export default class Pendings extends Component {
                             orgao={pending.orgao_nome}
                             servico={pending.servico_nome}
                             url={pending.url}
+                            status={pending.status}
                             onClickModerate={this.openModal}
                             />
                         )
