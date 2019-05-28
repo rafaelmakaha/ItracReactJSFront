@@ -71,6 +71,7 @@ export default class Edit extends Component {
                     answare_id: this.state.answare.answare_id,
                     servico_nome: this.state.value_servico,
                     servico_id: this.state.value_servico_id,
+                    survey_id: this.state.answare.survey_id,
                 }),
                 headers: {
                     'Content-Type': 'application/json'
