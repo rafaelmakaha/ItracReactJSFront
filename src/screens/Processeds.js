@@ -34,41 +34,25 @@ export default class Processeds extends Component {
                     alignItems="center"
                 >
                     <Grid item>
-                        <Typography variant="h5">LimeID</Typography>
-                    </Grid>
-                    <Grid item>
                         <Typography variant="h5">Órgão</Typography>
                     </Grid>
                     <Grid item>
                         <Typography variant="h5">Serviço</Typography>
                     </Grid>
-                    <Grid item>
-                        <Typography variant="h5">Status</Typography>
-                    </Grid>
                 </Grid>
-                <Grid container
-                direction="column"
-                justify="center"
-                alignItems="center"
-                >
-                    {processeds.map((processed,key) => {
-                        return(
-                            <Grid item xs={8}
+                {processeds.map((processed,key) => {
+                    return(
+                            <Answare
                             key={key}
-                            >
-                                <Answare 
-                                key={key}
-                                idLimeSurvey={processed.lime_id}
-                                orgao={processed.orgao_nome}
-                                servico={processed.servico_nome}
-                                url={processed.url}
-                                status={processed.status}
-                                // onClickModerate={props.onClickModerate}
-                                />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+                            //idLimeSurvey={processed.lime_id}
+                            orgao={processed.orgao_nome}
+                            servico={processed.servico_nome}
+                            url={processed.url}
+                            //status={processed.status}
+                            // onClickModerate={props.onClickModerate}
+                            />
+                    )
+                })}
             </Paper>
         );
         
