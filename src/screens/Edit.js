@@ -11,6 +11,7 @@ import {
     TextField,
 } from '@material-ui/core';
 import Select from 'react-select';
+import {Link} from 'react-router-dom';
 
 
 export default class Edit extends Component {
@@ -67,7 +68,7 @@ export default class Edit extends Component {
             {
                 method: 'PUT',
                 body: JSON.stringify({
-                    answare_id: this.state.answare_id,
+                    answare_id: this.state.answare.answare_id,
                     servico_nome: this.state.value_servico,
                     servico_id: this.state.value_servico_id,
                 }),
@@ -107,10 +108,10 @@ export default class Edit extends Component {
             let response2 = await fetch(
                 'http://0.0.0.0:8000/api/orgao/'+response.orgao_id+'/',
                 );
-                if(response2.ok){
-                    response2 = await response2.json();
-                }
-                await this.setState({ orgao: response2 });
+            if(response2.ok){
+                response2 = await response2.json();
+            }
+            await this.setState({ orgao: response2 });
             await this.setState({ isLoading: false });
         }
         request();
@@ -170,16 +171,14 @@ export default class Edit extends Component {
                         label={"Outro"}
                         onChange={this.handleCheckedOthers}
                         />
-                        <Select
-                        placeholder={this.state.otherValueServico}
-                        isDisabled={this.state.isDisabledSelect}
-                        onChange={(e)=>{this.handleOthersServico(e)}}
-                        options={orgao.servico.map((item,i) => ({label:item.nome, value:item}))}
-                        isSearchable
-                        />
-                       {console.log(this.state.value_servico)}
-                       {console.log(this.state.value_servico_id)}
                     </RadioGroup>
+                    <Select
+                    placeholder={this.state.otherValueServico}
+                    isDisabled={this.state.isDisabledSelect}
+                    onChange={(e)=>{this.handleOthersServico(e)}}
+                    options={orgao.servico.map((item,i) => ({label:item.nome, value:item}))}
+                    isSearchable
+                    />
                 </FormControl>
                 <Grid container
                 direction="row"
@@ -198,7 +197,7 @@ export default class Edit extends Component {
                             variant="contained" 
                             color="primary" 
                             onClick={this.onClickModerate}
-                            // component={Link} to='/edit'
+                            component={Link} to='/'
                         >
                             Confirmar
                         </Button>
