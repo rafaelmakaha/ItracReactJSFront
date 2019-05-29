@@ -99,7 +99,8 @@ export default class Edit extends Component {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        nome:response.servico_nome
+                        nome:response.servico_nome,
+                        orgao_id:response.orgao_id
                     }) 
                 }
                 );
