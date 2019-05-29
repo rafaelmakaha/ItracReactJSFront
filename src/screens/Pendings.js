@@ -6,6 +6,7 @@ import { Paper,
 import { Answare } from '../components/Answare';
 import Edit from './Edit';
 import EditModal from '../components/EditModal';
+import CustomizedTable from '../components/CustomizedTable';
 
 export default class Pendings extends Component {
     constructor(props){
@@ -49,7 +50,7 @@ export default class Pendings extends Component {
         }
         return(
             <div>
-                <Paper >
+                {/* <Paper >
                     <Grid container
                     direction="row"
                     justify="space-around"
@@ -77,7 +78,11 @@ export default class Pendings extends Component {
                             />
                         )
                     })}
-                </Paper>
+                </Paper> */}
+                <CustomizedTable 
+                data={pendings}
+                onClickModerate={this.openModal}
+                />
                 <EditModal
                 open={this.state.open}
                 onClose={this.closeModal}
