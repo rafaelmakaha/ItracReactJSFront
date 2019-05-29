@@ -153,7 +153,6 @@ export default class Edit extends Component {
                     >
                         <FormControlLabel 
                         value={this.state.actualValueServico}
-                        checked
                         control={<Radio />} 
                         label={"Informado no diagnóstico de servicos"} 
                         onChange={this.handleCheckedActual}
